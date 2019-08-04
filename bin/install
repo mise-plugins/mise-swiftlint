@@ -1,1 +1,8 @@
 #!/usr/bin/env bash
+
+set -eo pipefail
+
+# shellcheck source=../lib/utils.sh
+source "$(dirname "$0")/../lib/utils.sh"
+
+download_jq_if_needed
