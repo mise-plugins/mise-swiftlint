@@ -2,7 +2,26 @@
 
 set -eo pipefail
 
+BASE_URL="https://api.github.com/repos/realm/swiftlint"
+RELEASES_URL="$BASE_URL/releases"
+
+curl_github() {
+    if [ -n "$GITHUB_API_TOKEN" ]; then
+        curl -s -H "Authorization: token $GITHUB_API_TOKEN" "%@"
+    else
+        curl -s "%@"
+    fi
+}
+
 # shellcheck source=../lib/utils.sh
 source "$(dirname "$0")/../lib/utils.sh"
 
 download_jq_if_needed
+
+DOWNLOAD_URL="$(
+    curl_github $RELEASES_URL \
+        | jq --raw-output '.[] | select(.tag_name == "$ASDF_INSTALL_VERSION").assets [] | select(.name == "portable_swiftlint.zip").browser_download_url'
+    )"
+
+mkdir -p "$ASDF_INSTALL_PATH/bin"
+curl $DOWNLOAD_URL -o "$ASDF_INSTALL_PATH/bin/swiftlint"
