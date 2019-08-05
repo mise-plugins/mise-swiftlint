@@ -21,14 +21,14 @@ download_jq_if_needed
 # Get the url to download the portable swiftlint release
 DOWNLOAD_URL="$(
     curl_github $RELEASES_URL \
-    | jq --raw-output ".[] | select(.tag_name == \"$ASDF_INSTALL_VERSION\").assets [] | select(.name == \"portable_swiftlint.zip\").browser_download_url"
+    | $(jq_path) --raw-output ".[] | select(.tag_name == \"$ASDF_INSTALL_VERSION\").assets [] | select(.name == \"portable_swiftlint.zip\").browser_download_url"
     )"
 
 # Download the zipped swiftlint file
 mkdir -p "$ASDF_INSTALL_PATH/bin"
 SWIFTLINT_DOWNLOAD_PATH="$ASDF_INSTALL_PATH/bin/swiftlint.zip"
-curl $DOWNLOAD_URL -L -o $SWIFTLINT_DOWNLOAD_PATH 2>/dev/null
+curl "$DOWNLOAD_URL" -L -o "$SWIFTLINT_DOWNLOAD_PATH" 2>/dev/null
 
 # unzip swiftlint from the archive and delete the archive afterwards
-unzip -o $SWIFTLINT_DOWNLOAD_PATH swiftlint -d "$ASDF_INSTALL_PATH/bin"
-rm $SWIFTLINT_DOWNLOAD_PATH
+unzip -o "$SWIFTLINT_DOWNLOAD_PATH" swiftlint -d "$ASDF_INSTALL_PATH/bin"
+rm "$SWIFTLINT_DOWNLOAD_PATH"

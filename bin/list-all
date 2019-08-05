@@ -5,8 +5,6 @@ set -eo pipefail
 # shellcheck source=../lib/utils.sh
 source "$(dirname "$0")/../lib/utils.sh"
 
-download_jq_if_needed
-
 RELEASES_URL="https://api.github.com/repos/realm/swiftlint/releases"
 
 curl_github() {
@@ -17,9 +15,13 @@ curl_github() {
     fi
 }
 
+download_jq_if_needed
+
 # fetch releases api endpoint, filter tag names thru jq,
 # reverse sort, then replace newlines with spaces
 curl_github $RELEASES_URL \
  | $(jq_path) --raw-output '.[].tag_name' \
  | tac \
  | tr '\n' ' '
+
+# | tee /dev/tty \
