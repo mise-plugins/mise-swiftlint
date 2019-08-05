@@ -1,0 +1,9 @@
+language: c
+script: asdf plugin-test swiftlint .
+before_script:
+  - git clone https://github.com/asdf-vm/asdf.git
+  - . asdf/asdf.sh
+osx_image: xcode10.2
+os:
+  - osx
+  # - linux
