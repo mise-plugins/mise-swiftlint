@@ -4,17 +4,15 @@ set -eo pipefail
 
 DOWNLOAD_URL="https://github.com/realm/SwiftLint/releases/download/$ASDF_INSTALL_VERSION/portable_swiftlint.zip"
 
-curl_cmd="curl -s"
-if [ -n "$GITHUB_API_TOKEN" ]; then
-    curl_cmd="$curl_cmd -H \"Authorization: token $GITHUB_API_TOKEN\""
-fi
-curl_cmd="$curl_cmd $DESIRED_RELEASE_URL"
+# make a temporary download directory with a cleanup hook
+readonly TMP_DOWNLOAD_DIR="$(mktemp -d -t "asdf_swiftlint_XXXXXX")"
+trap 'rm -rf "${TMP_DOWNLOAD_DIR?}"' EXIT
+
+SWIFTLINT_DOWNLOAD_PATH="$TMP_DOWNLOAD_DIR/swiftlint.zip"
 
 # Download the zipped swiftlint file
 mkdir -p "$ASDF_INSTALL_PATH/bin"
-SWIFTLINT_DOWNLOAD_PATH="$ASDF_INSTALL_PATH/swiftlint.zip"
-curl "$DOWNLOAD_URL" -L -o "$SWIFTLINT_DOWNLOAD_PATH" 2>/dev/null
+curl -s "$DOWNLOAD_URL" -L -o "$SWIFTLINT_DOWNLOAD_PATH" 2>/dev/null
 
-# unzip swiftlint from the archive and delete the archive afterwards
+# unzip swiftlint from the archive into the bin folder
 unzip -o "$SWIFTLINT_DOWNLOAD_PATH" swiftlint -d "$ASDF_INSTALL_PATH/bin"
-rm "$SWIFTLINT_DOWNLOAD_PATH"
