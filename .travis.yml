@@ -1,11 +1,18 @@
 language: c
-before_script:
-  - git clone https://github.com/asdf-vm/asdf.git
-  - . asdf/asdf.sh
-script: 
-  - asdf plugin-test swiftlint $TRAVIS_BUILD_DIR 'swiftlint version'
-
+addons:
+  homebrew:
+    packages:
+    - shellcheck
+env:
+  - HOMEBREW_NO_INSTALL_CLEANUP=1
 osx_image: xcode10.3
 os:
   - osx
-  # - linux
+
+before_script:
+  - git clone https://github.com/asdf-vm/asdf.git
+  - . asdf/asdf.sh
+
+script: 
+  - shellcheck bin/*
+  - asdf plugin-test swiftlint $TRAVIS_BUILD_DIR 'swiftlint version'
