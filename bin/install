@@ -15,4 +15,4 @@ mkdir -p "$ASDF_INSTALL_PATH/bin"
 curl -s "$DOWNLOAD_URL" -L -o "$SWIFTLINT_DOWNLOAD_PATH" 2>/dev/null
 
 # unzip swiftlint from the archive into the bin folder
-unzip -o "$SWIFTLINT_DOWNLOAD_PATH" swiftlint -d "$ASDF_INSTALL_PATH/bin"
+unzip -o "$SWIFTLINT_DOWNLOAD_PATH" swiftlint -d "$ASDF_INSTALL_PATH/bin" >/dev/null
