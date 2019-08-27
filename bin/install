@@ -26,7 +26,7 @@ DOWNLOAD_URL="$(
 
 # Download the zipped swiftlint file
 mkdir -p "$ASDF_INSTALL_PATH/bin"
-SWIFTLINT_DOWNLOAD_PATH="$ASDF_INSTALL_PATH/bin/swiftlint.zip"
+SWIFTLINT_DOWNLOAD_PATH="$ASDF_INSTALL_PATH/swiftlint.zip"
 curl "$DOWNLOAD_URL" -L -o "$SWIFTLINT_DOWNLOAD_PATH" 2>/dev/null
 
 # unzip swiftlint from the archive and delete the archive afterwards
