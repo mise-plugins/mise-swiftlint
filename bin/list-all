@@ -8,6 +8,10 @@ curl_cmd="curl -s"
 if [ -n "$GITHUB_API_TOKEN" ]; then
     curl_cmd="$curl_cmd -H \"Authorization: token $GITHUB_API_TOKEN\""
 fi
-curl_cmd="$curl_cmd $RELEASES_URL"
 
-echo $(eval "$curl_cmd" | grep tag_name | sed 's/"tag_name": //g;s/"//g;s/,//g' | (tac 2>/dev/null || tail -r) | xargs)
+# Fetch list of releases and get names of each release tag
+eval "$curl_cmd $RELEASES_URL" \
+    | grep tag_name \
+    | sed 's/"tag_name": //g;s/"//g;s/,//g' \
+    | (tac 2>/dev/null || tail -r) \
+    | xargs
