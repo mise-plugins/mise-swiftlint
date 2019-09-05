@@ -7,9 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: Install Shellcheck
-      run: sudo apt-get install shellcheck
-    - name: Lint the plugin
+    - name: Run Shellcheck
       run: shellcheck bin/*
       
   plugin-test:
@@ -17,6 +15,10 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install ASDF
-      run: brew install asdf
+      run: git clone https://github.com/asdf-vm/asdf.git $HOME/asdf
     - name: Test plugin 
-      run: GITHUB_API_TOKEN=$GITHUB_TOKEN asdf plugin-test swiftlint $GITHUB_WORKSPACE 'asdf exec swiftlint version'
+      env:
+        GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        . $HOME/asdf/asdf.sh
+        asdf plugin-test swiftlint $GITHUB_WORKSPACE 'swiftlint version'
