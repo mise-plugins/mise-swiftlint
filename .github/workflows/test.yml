@@ -4,21 +4,19 @@ on: [push]
 
 jobs:
   lint:
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
     - name: Install Shellcheck
-      run: brew install shellcheck
+      run: apt-get install shellcheck
     - name: Lint the plugin
       run: shellcheck bin/*
       
-  test:
+  plugin-test:
     runs-on: macOS-latest
     steps:
     - uses: actions/checkout@v1
     - name: Install ASDF
-      run: |
-        git clone https://github.com/asdf-vm/asdf.git
-        . asdf/asdf.sh
+      run: brew install asdf
     - name: Test plugin 
       run: asdf plugin-test swiftlint . 'swiftlint version'
