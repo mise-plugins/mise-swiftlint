@@ -1,0 +1,24 @@
+name: CI
+
+on: [push]
+
+jobs:
+  lint:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Shellcheck
+      run: brew install shellcheck
+    - name: Lint the plugin
+      run: shellcheck bin/*
+      
+  test:
+    runs-on: macOS-latest
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install ASDF
+      run: |
+        git clone https://github.com/asdf-vm/asdf.git
+        . asdf/asdf.sh
+    - name: Test plugin 
+      run: asdf plugin-test swiftlint . 'swiftlint version'
