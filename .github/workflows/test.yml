@@ -8,7 +8,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install Shellcheck
-      run: apt-get install shellcheck
+      run: sudo apt-get install shellcheck
     - name: Lint the plugin
       run: shellcheck bin/*
       
@@ -19,4 +19,4 @@ jobs:
     - name: Install ASDF
       run: brew install asdf
     - name: Test plugin 
-      run: asdf plugin-test swiftlint . 'swiftlint version'
+      run: asdf plugin-test swiftlint . 'asdf exec swiftlint version'
