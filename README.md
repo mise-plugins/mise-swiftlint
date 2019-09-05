@@ -1,4 +1,5 @@
 # asdf-swiftlint
+
 An asdf plugin for swiftlint (a linting and formatting tool for Swift)
 
 [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fklundberg%2Fasdf-swiftlint%2Fbadge&style=flat)](https://actions-badge.atrox.dev/klundberg/asdf-swiftlint/goto)
