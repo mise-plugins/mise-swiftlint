@@ -19,4 +19,4 @@ jobs:
     - name: Install ASDF
       run: brew install asdf
     - name: Test plugin 
-      run: asdf plugin-test swiftlint . 'asdf exec swiftlint version'
+      run: GITHUB_API_TOKEN=$GITHUB_TOKEN asdf plugin-test swiftlint $GITHUB_WORKSPACE 'asdf exec swiftlint version'
