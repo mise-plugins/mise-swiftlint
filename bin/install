@@ -2,7 +2,21 @@
 
 set -eo pipefail
 
-DOWNLOAD_URL="https://github.com/realm/SwiftLint/releases/download/$ASDF_INSTALL_VERSION/portable_swiftlint.zip"
+# Determine OS type
+case "$OSTYPE" in
+darwin*)
+	ARCHIVE_NAME="portable_swiftlint"
+	;;
+linux*)
+	ARCHIVE_NAME="swiftlint_linux"
+	;;
+*)
+	echo "Unsupported OS: $OSTYPE"
+	exit 1
+	;;
+esac
+
+DOWNLOAD_URL="https://github.com/realm/SwiftLint/releases/download/$ASDF_INSTALL_VERSION/$ARCHIVE_NAME.zip"
 
 # make a temporary download directory with a cleanup hook
 readonly TMP_DOWNLOAD_DIR="$(mktemp -d -t "asdf_swiftlint_XXXXXX")"
