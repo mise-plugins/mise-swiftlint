@@ -6,19 +6,32 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Run Shellcheck
-      run: shellcheck bin/*
-      
-  plugin-test:
+      - uses: actions/checkout@v4
+      - name: Run Shellcheck
+        run: shellcheck bin/*
+
+  plugin-test-macos:
     runs-on: macOS-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Install ASDF
-      run: git clone https://github.com/asdf-vm/asdf.git $HOME/asdf
-    - name: Test plugin 
-      env:
-        GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        . $HOME/asdf/asdf.sh
-        asdf plugin-test swiftlint $GITHUB_WORKSPACE 'swiftlint version'
+      - uses: actions/checkout@v4
+      - name: Install ASDF
+        run: git clone https://github.com/asdf-vm/asdf.git $HOME/asdf
+      - name: Test plugin
+        env:
+          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          . $HOME/asdf/asdf.sh
+          asdf plugin-test swiftlint $GITHUB_WORKSPACE 'swiftlint version'
+
+  plugin-test-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install ASDF
+        run: git clone https://github.com/asdf-vm/asdf.git $HOME/asdf
+      - name: Test plugin
+        env:
+          GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          . $HOME/asdf/asdf.sh
+          asdf plugin-test swiftlint $GITHUB_WORKSPACE 'swiftlint version'
