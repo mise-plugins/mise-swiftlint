@@ -19,7 +19,8 @@ esac
 DOWNLOAD_URL="https://github.com/realm/SwiftLint/releases/download/$ASDF_INSTALL_VERSION/$ARCHIVE_NAME.zip"
 
 # make a temporary download directory with a cleanup hook
-readonly TMP_DOWNLOAD_DIR="$(mktemp -d -t "asdf_swiftlint_XXXXXX")"
+TMP_DOWNLOAD_DIR="$(mktemp -d -t "asdf_swiftlint_XXXXXX")"
+readonly TMP_DOWNLOAD_DIR
 trap 'rm -rf "${TMP_DOWNLOAD_DIR?}"' EXIT
 
 SWIFTLINT_DOWNLOAD_PATH="$TMP_DOWNLOAD_DIR/swiftlint.zip"
