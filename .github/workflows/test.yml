@@ -22,7 +22,7 @@ jobs:
         env:
           GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mise plugin install swiftlint $GITHUB_WORKSPACE
+          mise plugin link swiftlint $GITHUB_WORKSPACE
           mise install swiftlint@latest
           mise exec swiftlint -- swiftlint version
 
@@ -38,6 +38,6 @@ jobs:
         env:
           GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          mise plugin install swiftlint $GITHUB_WORKSPACE
+          mise plugin link swiftlint $GITHUB_WORKSPACE
           mise install swiftlint@latest
           mise exec swiftlint -- swiftlint version
