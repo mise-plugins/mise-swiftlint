@@ -61,7 +61,7 @@ linux*)
   ;;
 esac
 
-DOWNLOAD_URL="GH_REPO/releases/download/$ASDF_INSTALL_VERSION/$ARCHIVE_NAME.zip"
+DOWNLOAD_URL="$GH_REPO/releases/download/$ASDF_INSTALL_VERSION/$ARCHIVE_NAME.zip"
 
 # make a temporary download directory with a cleanup hook
 TMP_DOWNLOAD_DIR="$(mktemp -d -t "asdf_swiftlint_XXXXXX")"
