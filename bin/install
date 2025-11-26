@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 set -eo pipefail
+GH_REPO="${MISE_SWIFTLINT_INSTALL_URL:-https://github.com/realm/SwiftLint}"
 
 normalize_version() {
   # Strip leading 'v' and any pre-release/build metadata (after '-')
@@ -60,7 +61,7 @@ linux*)
   ;;
 esac
 
-DOWNLOAD_URL="https://github.com/realm/SwiftLint/releases/download/$ASDF_INSTALL_VERSION/$ARCHIVE_NAME.zip"
+DOWNLOAD_URL="$GH_REPO/releases/download/$ASDF_INSTALL_VERSION/$ARCHIVE_NAME.zip"
 
 # make a temporary download directory with a cleanup hook
 TMP_DOWNLOAD_DIR="$(mktemp -d -t "asdf_swiftlint_XXXXXX")"
