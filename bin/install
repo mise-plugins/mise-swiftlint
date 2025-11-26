@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 set -eo pipefail
-GH_REPO="${MISE_SWIFTFLINT_INSTALL_URL:-https://github.com/realm/SwiftLint}"
+GH_REPO="${MISE_SWIFTLINT_INSTALL_URL:-https://github.com/realm/SwiftLint}"
 
 normalize_version() {
   # Strip leading 'v' and any pre-release/build metadata (after '-')
